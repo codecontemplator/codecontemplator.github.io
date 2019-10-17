@@ -167,7 +167,9 @@ In C# **`List<Dog>`** is not related to **`List<Animal>`**.
 
 List types are **invariant** and no conversion (neither implicit nor explicit) exists. 
 
-**Read+Write** data structures should be **invariant**.<sup>1</sup>
+* **Read+Write** data structures should be **invariant**.<sup>1</sup>
+* **Read only** data structures can be **covariant**.
+* **Write only** data structures can be **contravariant**. 
 
 <sup><sub><sub>1</sub></sub></sup> <sub><sub>Arrays are covariant in C# for historic reasons. This is not type safe though.</sub></sub>
 
@@ -224,14 +226,14 @@ beNiceToBulldog(new Bulldog());  // Bulldogs are dogs so this works
 
 # Variance Conversion
 
-"Downcast" works...
+"Upcast" works...
 
 ```csharp
 IEnumerable<Dog> dogs;
 IEnumerable<Animal> animals = dogs;
 ```
 
-...but how about "upcast"?
+...but how about "downcast"?
 
 ```csharp
 IEnumerable<Animal> animals;
@@ -301,7 +303,7 @@ List<List<Derived>> derived = new List<List<Derived>>();
 IEnumerable<IEnumerable<Base>> @base = (IEnumerable<IEnumerable<Base>>)derived;
 ```
 
-Downcase works though. **`IEnumerable<Derived>`** is variance convertable to **`IEnumerable<Base>`**. &#128077;
+Upcast works though. **`IEnumerable<Derived>`** is variance convertable to **`IEnumerable<Base>`**. &#128077;
 
 ```csharp
 IEnumerable<IEnumerable<Derived>> derived = new List<List<Derived>>();
